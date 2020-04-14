@@ -31,8 +31,15 @@ http {
  	}
 
 	server {
-		listen <%= ENV["PORT"] %> ssl http2;
-		server_name _;
+		listen 443 ssl http2;
+		listen [::]:443 ssl http2;
+
+		ssl_certificate /config/ssl/nginx.crt;
+		ssl_certificate_key /config/ssl/nginx.key;
+
+		listen <%= ENV["PORT"] %>;
+
+		server_name sarwa-staging.herokuapp.com;
 		keepalive_timeout 5;
 
 		location / {
